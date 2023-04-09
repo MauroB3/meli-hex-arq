@@ -8,7 +8,7 @@ class UserRepository(ABC):
         pass
 
     @abstractmethod
-    def delete_user_by_email(self, mail: str):
+    def delete_user_by_email(self, email: str):
         pass
 
     @abstractmethod

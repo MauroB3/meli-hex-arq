@@ -14,8 +14,8 @@ class UserService:
             .build()
         return self._repository.create_user(user)
 
-    def delete_user_by_email(self, mail: str):
-        return self._repository.delete_user_by_email(mail)
+    def delete_user_by_email(self, email: str):
+        return self._repository.delete_user_by_email(email)
 
     def update_user(self, name: str, last_name: str, email: str):
         return self._repository.update_user(name, last_name, email)
