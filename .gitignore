@@ -130,3 +130,6 @@ dmypy.json
 
 # Pycharm
 .idea/
+
+# Config
+.src/config/mongodb_atlas.py
