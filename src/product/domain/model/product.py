@@ -1,4 +1,5 @@
-from src.seller.model import seller
+from src.product.domain.model.money import Money
+from src.seller.domain.model import seller
 from dataclasses import dataclass
 from uuid import uuid1
 
@@ -8,6 +9,6 @@ class Product:
     _id: uuid1()
     name: str
     description: str
-    price: float
+    money: Money
     _seller: seller
     stock: int = 0

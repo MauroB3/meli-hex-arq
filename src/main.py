@@ -1,8 +1,6 @@
 from fastapi import FastAPI
 import uvicorn
 
-from src.product.model.product import Product
-
 app = FastAPI()
 
 
