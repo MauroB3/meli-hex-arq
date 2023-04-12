@@ -1,5 +1,6 @@
 import pymongo as pymongo
 
+from src.user.domain.exceptions.user_not_found_exception import UserNotFoundException
 from src.user.domain.model import user
 from src.user.domain.ports.user_repository import UserRepository
 from src.config.mongodb_atlas import mongodb_uri
@@ -19,9 +20,13 @@ class MongoDBUserRepository(UserRepository):
 
     def delete_user_by_email(self, email: str):
         query = {"email": email}
-        self.collection.delete_one(query)
+        return self.collection.delete_one(query).deleted_count
 
     def update_user(self, name: str, last_name: str, email: str):
         query = {"email": email}
         new_values = {"$set": {"name": name, "last_name": last_name}}
-        self.collection.update_one(query, new_values)
+        res = self.collection.update_one(query, new_values)
+        if not res.modified_count:
+            raise UserNotFoundException()
+
+        return True
