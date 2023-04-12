@@ -16,11 +16,16 @@ class MongoDBUserRepository(UserRepository):
 
     def create_user(self, _user: user):
         mapped_user = map_user_to_dict(_user)
-        self.collection.insert_one(mapped_user)
+        res = self.collection.insert_one(mapped_user)
+        return res.inserted_id
 
     def delete_user_by_email(self, email: str):
         query = {"email": email}
-        return self.collection.delete_one(query).deleted_count
+        res = self.collection.delete_one(query)
+        if not res.deleted_count:
+            raise UserNotFoundException()
+
+        return True
 
     def update_user(self, name: str, last_name: str, email: str):
         query = {"email": email}
