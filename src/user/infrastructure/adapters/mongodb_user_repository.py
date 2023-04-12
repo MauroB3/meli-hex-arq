@@ -1,5 +1,6 @@
 import pymongo as pymongo
 
+from src.user.domain.exceptions.user_already_exists_exception import UserAlreadyExistsException
 from src.user.domain.exceptions.user_not_found_exception import UserNotFoundException
 from src.user.domain.model import user
 from src.user.domain.ports.user_repository import UserRepository
@@ -15,6 +16,10 @@ class MongoDBUserRepository(UserRepository):
         self.collection = self.db["user"]
 
     def create_user(self, _user: user):
+        query = {"email": _user.email}
+        if self.collection.find_one(query):
+            raise UserAlreadyExistsException()
+
         mapped_user = map_user_to_dict(_user)
         res = self.collection.insert_one(mapped_user)
         return res.inserted_id
@@ -35,3 +40,11 @@ class MongoDBUserRepository(UserRepository):
             raise UserNotFoundException()
 
         return True
+
+    def find_user(self, email: str):
+        query = {"email": email}
+        res = self.collection.find_one(query)
+        if not res:
+            raise UserNotFoundException()
+
+        return res

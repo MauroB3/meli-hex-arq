@@ -14,3 +14,7 @@ class UserRepository(ABC):
     @abstractmethod
     def update_user(self, name: str, last_name: str, email: str):
         pass
+
+    @abstractmethod
+    def find_user(self, email: str):
+        pass
