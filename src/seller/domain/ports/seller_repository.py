@@ -12,5 +12,9 @@ class SellerRepository(ABC):
         pass
 
     @abstractmethod
-    def save_seller(self, _seller: seller):
+    def update_seller(self, name: str, _mail: str):
+        pass
+
+    @abstractmethod
+    def find_seller(self, _mail: str):
         pass
