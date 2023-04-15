@@ -4,7 +4,6 @@ import uvicorn
 from src.seller.application.services.seller_service import SellerService
 from src.seller.infrastructure.adapters.mongodb_seller_repository import MongoDBSellerRepository
 from src.seller.infrastructure.controllers.seller_controller import SellerController
-from src.user.application.services.user_service import UserService
 from src.user.infrastructure.adapters.mongodb_user_repository import MongoDBUserRepository
 from src.user.infrastructure.controllers.user_controller import UserController
 from src.user.infrastructure.handler.user_handler import add_user_exception_handler
@@ -25,8 +24,7 @@ def setup_handlers():
 
 def setup_user_routes():
     user_repository = MongoDBUserRepository()
-    user_service = UserService(user_repository)
-    user_controller = UserController(user_service)
+    user_controller = UserController(user_repository)
     app.include_router(user_controller.router)
 
 
