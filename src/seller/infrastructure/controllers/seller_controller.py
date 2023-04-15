@@ -1,14 +1,18 @@
 from bson.json_util import dumps
 from fastapi import APIRouter
 from fastapi.responses import JSONResponse
-from src.seller.application.services.seller_service import SellerService
+from src.seller.domain.ports.seller_repository import SellerRepository
 from src.seller.infrastructure.dto.seller_dto import SellerDTO
 from src.seller.infrastructure.dto.seller_email_dto import SellerEmailDTO
+from src.seller.application.use_cases.create_seller import create_seller as create_seller_uc
+from src.seller.application.use_cases.delete_seller_by_email import delete_seller_by_email as delete_seller_by_email_uc
+from src.seller.application.use_cases.find_seller import find_seller as find_seller_uc
+from src.seller.application.use_cases.update_seller import update_seller as update_seller_uc
 
 
 class SellerController:
-    def __init__(self, seller_service: SellerService):
-        self.seller_service = seller_service
+    def __init__(self, seller_repository: SellerRepository):
+        self.seller_repository = seller_repository
         self.router = APIRouter()
         self.init_routes()
 
@@ -19,17 +23,17 @@ class SellerController:
         self.router.add_api_route("/seller/find", self.find_seller, methods=['POST'])
 
     def create_seller(self, seller: SellerDTO):
-        self.seller_service.create_seller(name=seller.name, email=seller.email)
+        create_seller_uc(seller_repository=self.seller_repository, name=seller.name, email=seller.email)
         return JSONResponse(status_code=201, content={"message": "Seller created."})
 
     def delete_seller_by_email(self, seller: SellerEmailDTO):
-        self.seller_service.delete_seller_by_email(seller.email)
+        delete_seller_by_email_uc(seller_repository=self.seller_repository, email=seller.email)
         return JSONResponse(status_code=200, content={"message": "Seller deleted."})
 
     def update_seller(self, seller: SellerDTO):
-        self.seller_service.update_seller(name=seller.name, email=seller.email)
+        update_seller_uc(seller_repository=self.seller_repository, name=seller.name, email=seller.email)
         return JSONResponse(status_code=200, content={"message": "Seller updated."})
 
     def find_seller(self, seller: SellerEmailDTO):
-        seller = self.seller_service.find_seller(seller.email)
+        seller = find_seller_uc(seller_repository=self.seller_repository, email=seller.email)
         return JSONResponse(status_code=200, content={"message": "Seller found.", "seller": dumps(seller)})

@@ -1,7 +1,6 @@
 from fastapi import FastAPI
 import uvicorn
 
-from src.seller.application.services.seller_service import SellerService
 from src.seller.infrastructure.adapters.mongodb_seller_repository import MongoDBSellerRepository
 from src.seller.infrastructure.controllers.seller_controller import SellerController
 from src.user.infrastructure.adapters.mongodb_user_repository import MongoDBUserRepository
@@ -30,8 +29,7 @@ def setup_user_routes():
 
 def setup_seller_routes():
     seller_repository = MongoDBSellerRepository()
-    seller_service = SellerService(seller_repository)
-    seller_controller = SellerController(seller_service)
+    seller_controller = SellerController(seller_repository)
     app.include_router(seller_controller.router)
 
 
