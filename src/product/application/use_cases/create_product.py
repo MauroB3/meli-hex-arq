@@ -18,5 +18,4 @@ def create_product(product_repository: ProductRepository, seller_repository: Sel
         .build()
 
     product.validate()
-    print(product._id)
     return product_repository.create_product(product)

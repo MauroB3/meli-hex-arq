@@ -1,5 +1,7 @@
 from dataclasses import dataclass
 
+from src.purchase.domain.exceptions.purchase_invalid_amount_exception import PurchaseInvalidAmountException
+
 
 @dataclass
 class Purchase:
@@ -8,3 +10,11 @@ class Purchase:
     amount: int
     date: str
     _id: str
+
+    def _validate_amount(self):
+        if self.amount <= 0:
+            raise PurchaseInvalidAmountException
+        return True
+
+    def validate(self):
+        return self._validate_amount()

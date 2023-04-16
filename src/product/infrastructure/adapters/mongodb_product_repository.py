@@ -34,12 +34,12 @@ class MongoDBProductRepository(ProductRepository):
         return True
 
     def update_product(self, product: Product):
-        product.validate()
         query = {"_id": product._id}
-        print(product._id)
-        new_values = {"$set": {"name": product.name, "price": product.price, "description": product.description}}
+        new_values = {"$set": {"name": product.name, "price": product.price, "description": product.description,
+                               "stock": product.stock}}
         res = self.collection.update_one(query, new_values)
         if not res.modified_count:
+
             raise ProductNotFoundException
 
         return True
