@@ -1,6 +1,4 @@
 from dataclasses import dataclass
-from uuid import uuid1
-
 from src.product.domain.exceptions.product_invalid_price_exception import ProductInvalidPriceException
 from src.product.domain.exceptions.product_invalid_stock_exception import ProductInvalidStockException
 
@@ -11,8 +9,8 @@ class Product:
     name: str
     description: str
     price: float
+    _id: str
     stock: int = 0
-    _id: str = uuid1().__str__()
 
     def _validate_stock(self):
         if self.stock < 0:

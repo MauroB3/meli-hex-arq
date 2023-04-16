@@ -1,9 +1,10 @@
 from src.product.domain.model.product import Product
+from uuid import uuid1
 
 
 class ProductBuilder:
     def __init__(self):
-        self.product = Product(seller_email='', name='', description='', stock=0, price=0)
+        self.product = Product(seller_email='', name='', description='', stock=0, price=0, _id=uuid1().__str__())
 
     def with_id(self, _id: str):
         self.product._id = _id
