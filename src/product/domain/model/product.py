@@ -25,6 +25,7 @@ class Product:
     def validate(self):
         return self._validate_stock() and self._validate_price()
 
-    @property
-    def id(self):
-        return self._id
+    def reduce_stock(self, amount: int):
+        if self.stock - amount < 0:
+            raise ProductInvalidStockException()
+        self.stock -= amount
