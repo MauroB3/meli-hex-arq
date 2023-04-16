@@ -1,4 +1,3 @@
-from bson.json_util import dumps
 from fastapi import APIRouter
 from fastapi.responses import JSONResponse
 from src.seller.domain.ports.seller_repository import SellerRepository
@@ -36,4 +35,4 @@ class SellerController:
 
     def find_seller(self, seller: SellerEmailDTO):
         seller = find_seller_uc(seller_repository=self.seller_repository, email=seller.email)
-        return JSONResponse(status_code=200, content={"message": "Seller found.", "seller": dumps(seller)})
+        return JSONResponse(status_code=200, content={"message": "Seller found.", "seller": seller})

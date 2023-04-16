@@ -1,4 +1,3 @@
-from bson.json_util import dumps
 from fastapi import APIRouter
 from fastapi.responses import JSONResponse
 from src.user.domain.ports.user_repository import UserRepository
@@ -8,7 +7,6 @@ from src.user.application.use_cases.create_user import create_user as create_use
 from src.user.application.use_cases.delete_user_by_email import delete_user_by_email as delete_user_by_email_uc
 from src.user.application.use_cases.update_user import update_user as update_user_uc
 from src.user.application.use_cases.find_user import find_user as find_user_uc
-
 
 
 class UserController:
@@ -36,5 +34,6 @@ class UserController:
         return JSONResponse(status_code=200, content={"message": "User updated."})
 
     def find_user(self, user: UserEmailDTO):
-        user = find_user_uc(user_repository=self.user_repository, email=user.email)
-        return JSONResponse(status_code=200, content={"message": "User found.", "user": dumps(user)})
+        user_res = find_user_uc(user_repository=self.user_repository, email=user.email)
+        return JSONResponse(status_code=200, content={"message": "User found.", "user": user_res})
+

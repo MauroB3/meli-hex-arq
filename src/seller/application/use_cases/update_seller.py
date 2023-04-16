@@ -1,5 +1,12 @@
+from src.seller.domain.builder.seller_builder import SellerBuilder
 from src.seller.domain.ports.seller_repository import SellerRepository
 
 
 def update_seller(seller_repository: SellerRepository, name: str, email: str):
-    return seller_repository.update_seller(name, email)
+    seller_db = seller_repository.find_seller_by_email(email)
+
+    seller = SellerBuilder()\
+        .with_id(seller_db['_id'])\
+        .with_name(name).with_email(email)\
+        .build()
+    return seller_repository.update_seller(seller)

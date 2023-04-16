@@ -5,6 +5,10 @@ class UserBuilder:
     def __init__(self):
         self.user = User(name="", last_name="", email="")
 
+    def with_id(self, _id: str):
+        self.user._id = _id
+        return self
+
     def with_name(self, name: str):
         self.user.name = name
         return self

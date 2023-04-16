@@ -2,7 +2,7 @@ import pymongo as pymongo
 
 from src.seller.domain.exceptions.seller_already_exists_exception import SellerAlreadyExistsException
 from src.seller.domain.exceptions.seller_not_found_exception import SellerNotFoundException
-from src.seller.domain.model import seller
+from src.seller.domain.model.seller import Seller
 from src.seller.domain.ports.seller_repository import SellerRepository
 from src.config.mongodb_atlas import mongodb_uri
 from src.seller.infrastructure.mappers.seller_mapper import map_seller_to_dict
@@ -15,7 +15,7 @@ class MongoDBSellerRepository(SellerRepository):
         self.db = self.client['arq-hex']
         self.collection = self.db["seller"]
 
-    def create_seller(self, _seller: seller):
+    def create_seller(self, _seller: Seller):
         query = {"email": _seller.email}
         if self.collection.find_one(query):
             raise SellerAlreadyExistsException()
@@ -32,16 +32,16 @@ class MongoDBSellerRepository(SellerRepository):
 
         return True
 
-    def update_seller(self, name: str, email: str):
-        query = {"email": email}
-        new_values = {"$set": {"name": name}}
+    def update_seller(self, seller: Seller):
+        query = {"email": seller.email}
+        new_values = {"$set": {"name": seller.name}}
         res = self.collection.update_one(query, new_values)
         if not res.modified_count:
             raise SellerNotFoundException()
 
         return True
 
-    def find_seller(self, email: str):
+    def find_seller_by_email(self, email: str):
         query = {"email": email}
         res = self.collection.find_one(query)
         if not res:

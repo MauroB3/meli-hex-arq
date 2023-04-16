@@ -1,6 +1,9 @@
 from fastapi import FastAPI
 import uvicorn
 
+from src.product.infrastructure.adapters.mongodb_product_repository import MongoDBProductRepository
+from src.product.infrastructure.controllers.product_controller import ProductController
+from src.product.infrastructure.handler.product_handler import add_product_exception_handler
 from src.seller.infrastructure.adapters.mongodb_seller_repository import MongoDBSellerRepository
 from src.seller.infrastructure.controllers.seller_controller import SellerController
 from src.user.infrastructure.adapters.mongodb_user_repository import MongoDBUserRepository
@@ -16,25 +19,28 @@ async def root():
     return {"message": "Hola"}
 
 
-def setup_handlers():
+def setup():
+    # Repositories
+    user_repository = MongoDBUserRepository()
+    seller_repository = MongoDBSellerRepository()
+    product_repository = MongoDBProductRepository()
+
+    # Controllers
+    user_controller = UserController(user_repository)
+    seller_controller = SellerController(seller_repository)
+    product_controller = ProductController(product_repository, seller_repository)
+
+    # Routers
+    app.include_router(user_controller.router)
+    app.include_router(seller_controller.router)
+    app.include_router(product_controller.router)
+
+    # Handlers
     add_user_exception_handler(app)
     add_seller_exception_handler(app)
-
-
-def setup_user_routes():
-    user_repository = MongoDBUserRepository()
-    user_controller = UserController(user_repository)
-    app.include_router(user_controller.router)
-
-
-def setup_seller_routes():
-    seller_repository = MongoDBSellerRepository()
-    seller_controller = SellerController(seller_repository)
-    app.include_router(seller_controller.router)
+    add_product_exception_handler(app)
 
 
 if __name__ == "__main__":
-    setup_user_routes()
-    setup_seller_routes()
-    setup_handlers()
+    setup()
     uvicorn.run(app, host="0.0.0.0", port=8000, log_level="info")

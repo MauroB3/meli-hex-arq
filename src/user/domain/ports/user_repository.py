@@ -1,10 +1,10 @@
-from src.user.domain.model import user
+from src.user.domain.model.user import User
 from abc import ABC, abstractmethod
 
 
 class UserRepository(ABC):
     @abstractmethod
-    def create_user(self, _user: user):
+    def create_user(self, user: User):
         pass
 
     @abstractmethod
@@ -12,7 +12,7 @@ class UserRepository(ABC):
         pass
 
     @abstractmethod
-    def update_user(self, name: str, last_name: str, email: str):
+    def update_user(self, user: User):
         pass
 
     @abstractmethod

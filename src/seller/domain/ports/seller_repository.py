@@ -1,10 +1,10 @@
-from src.seller.domain.model import seller
 from abc import ABC, abstractmethod
+from src.seller.domain.model.seller import Seller
 
 
 class SellerRepository(ABC):
     @abstractmethod
-    def create_seller(self, _seller: seller):
+    def create_seller(self, _seller: Seller):
         pass
 
     @abstractmethod
@@ -12,9 +12,9 @@ class SellerRepository(ABC):
         pass
 
     @abstractmethod
-    def update_seller(self, name: str, _mail: str):
+    def update_seller(self, seller: Seller):
         pass
 
     @abstractmethod
-    def find_seller(self, _mail: str):
+    def find_seller_by_email(self, _mail: str):
         pass
