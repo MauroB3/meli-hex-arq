@@ -1,5 +1,4 @@
 import pymongo as pymongo
-
 from src.user.domain.exceptions.user_already_exists_exception import UserAlreadyExistsException
 from src.user.domain.exceptions.user_not_found_exception import UserNotFoundException
 from src.user.domain.model.user import User
