@@ -4,6 +4,7 @@ import uvicorn
 from src.product.infrastructure.adapters.mongodb_product_repository import MongoDBProductRepository
 from src.product.infrastructure.controllers.product_controller import ProductController
 from src.product.infrastructure.handler.product_handler import add_product_exception_handler
+from src.purchase.infrastructure.handler.purchase_handler import add_purchase_exception_handler
 from src.seller.infrastructure.adapters.mongodb_seller_repository import MongoDBSellerRepository
 from src.seller.infrastructure.controllers.seller_controller import SellerController
 from src.user.infrastructure.adapters.mongodb_user_repository import MongoDBUserRepository
@@ -39,6 +40,7 @@ def setup():
     add_user_exception_handler(app)
     add_seller_exception_handler(app)
     add_product_exception_handler(app)
+    add_purchase_exception_handler(app)
 
 
 if __name__ == "__main__":
