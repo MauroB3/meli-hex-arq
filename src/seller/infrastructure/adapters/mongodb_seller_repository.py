@@ -56,3 +56,12 @@ class MongoDBSellerRepository(SellerRepository):
             raise SellerNotFoundException()
 
         return res
+
+    def find_seller_by_name(self, name: str):
+        query = {"name": {'$regex': name, '$options': 'i'}}
+        q_res = list(self.collection.find(query))
+        res = list(q_res)
+        if not res:
+            raise SellerNotFoundException()
+
+        return res

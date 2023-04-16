@@ -7,4 +7,5 @@ def create_seller(seller_repository: SellerRepository, name: str, email: str):
         .with_name(name) \
         .with_email(email) \
         .build()
+
     return seller_repository.create_seller(seller)

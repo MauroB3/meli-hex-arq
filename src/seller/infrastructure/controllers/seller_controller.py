@@ -4,11 +4,13 @@ from src.seller.domain.ports.seller_repository import SellerRepository
 from src.seller.infrastructure.dto.seller_dto import SellerDTO
 from src.seller.infrastructure.dto.seller_email_dto import SellerEmailDTO
 from src.seller.infrastructure.dto.seller_id_dto import SellerIdDTO
+from src.seller.infrastructure.dto.seller_name_dto import SellerNameDTO
 from src.seller.application.use_cases.create_seller import create_seller as create_seller_uc
 from src.seller.application.use_cases.delete_seller_by_email import delete_seller_by_email as delete_seller_by_email_uc
 from src.seller.application.use_cases.update_seller import update_seller as update_seller_uc
 from src.seller.application.use_cases.find_seller import find_seller_by_email as find_seller_by_email_uc
 from src.seller.application.use_cases.find_seller import find_seller_by_id as find_seller_by_id_uc
+from src.seller.application.use_cases.find_seller import find_seller_by_name as find_seller_by_name_uc
 
 
 class SellerController:
@@ -23,6 +25,7 @@ class SellerController:
         self.router.add_api_route("/seller/update", self.update_seller, methods=['POST'])
         self.router.add_api_route("/seller/find_by_email", self.find_by_email, methods=['POST'])
         self.router.add_api_route("/seller/find_by_id", self.find_by_id, methods=['POST'])
+        self.router.add_api_route("/seller/find_by_name", self.find_by_name, methods=['POST'])
 
     def create_seller(self, seller: SellerDTO):
         create_seller_uc(seller_repository=self.seller_repository, name=seller.name, email=seller.email)
@@ -43,3 +46,7 @@ class SellerController:
     def find_by_id(self, seller: SellerIdDTO):
         seller = find_seller_by_id_uc(seller_repository=self.seller_repository, _id=seller.id)
         return JSONResponse(status_code=200, content={"message": "Seller found.", "seller": seller})
+
+    def find_by_name(self, seller: SellerNameDTO):
+        sellers = find_seller_by_name_uc(seller_repository=self.seller_repository, name=seller.name)
+        return JSONResponse(status_code=200, content={"message": "Sellers found.", "sellers": sellers})

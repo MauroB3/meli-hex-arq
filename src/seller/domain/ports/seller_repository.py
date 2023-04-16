@@ -23,4 +23,6 @@ class SellerRepository(ABC):
     def find_seller_by_id(self, _id: str):
         pass
 
-
+    @abstractmethod
+    def find_seller_by_name(self, name: str):
+        pass

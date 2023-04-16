@@ -1,9 +1,10 @@
 from src.seller.domain.model.seller import Seller
+from uuid import uuid1
 
 
 class SellerBuilder:
     def __init__(self):
-        self.seller = Seller(name="", email="")
+        self.seller = Seller(name="", email="", _id=uuid1().__str__())
 
     def with_id(self, _id: str):
         self.seller._id = _id

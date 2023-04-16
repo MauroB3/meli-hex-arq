@@ -6,4 +6,4 @@ from uuid import uuid1
 class Seller:
     email: str
     name: str
-    _id: str = uuid1().__str__()
+    _id: str
