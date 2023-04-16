@@ -18,3 +18,9 @@ class SellerRepository(ABC):
     @abstractmethod
     def find_seller_by_email(self, _mail: str):
         pass
+
+    @abstractmethod
+    def find_seller_by_id(self, _id: str):
+        pass
+
+

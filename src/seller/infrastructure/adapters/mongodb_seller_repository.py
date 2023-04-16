@@ -48,3 +48,11 @@ class MongoDBSellerRepository(SellerRepository):
             raise SellerNotFoundException()
 
         return res
+
+    def find_seller_by_id(self, _id: str):
+        query = {"_id": _id}
+        res = self.collection.find_one(query)
+        if not res:
+            raise SellerNotFoundException()
+
+        return res

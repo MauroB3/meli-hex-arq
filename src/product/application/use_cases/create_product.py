@@ -1,6 +1,6 @@
 from src.product.domain.builder.product_builder import ProductBuilder
 from src.product.domain.ports.product_repository import ProductRepository
-from src.seller.application.use_cases.find_seller import find_seller
+from src.seller.application.use_cases.find_seller import find_seller_by_email
 from src.seller.domain.ports.seller_repository import SellerRepository
 
 
@@ -8,7 +8,7 @@ def create_product(product_repository: ProductRepository, seller_repository: Sel
                    name: str, description: str,
                    price: float, stock: int = 0):
 
-    find_seller(seller_repository, seller_email)
+    find_seller_by_email(seller_repository, seller_email)
 
     product = ProductBuilder(). \
         with_seller_email(seller_email). \

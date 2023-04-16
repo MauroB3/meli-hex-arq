@@ -1,5 +1,9 @@
 from src.seller.domain.ports.seller_repository import SellerRepository
 
 
-def find_seller(seller_repository: SellerRepository, email: str):
+def find_seller_by_email(seller_repository: SellerRepository, email: str):
     return seller_repository.find_seller_by_email(email)
+
+
+def find_seller_by_id(seller_repository: SellerRepository, _id: str):
+    return seller_repository.find_seller_by_id(_id)
