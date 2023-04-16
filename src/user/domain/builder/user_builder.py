@@ -1,9 +1,10 @@
 from src.user.domain.model.user import User
+from uuid import uuid1
 
 
 class UserBuilder:
     def __init__(self):
-        self.user = User(name="", last_name="", email="")
+        self.user = User(name="", last_name="", email="", _id=uuid1().__str__())
 
     def with_id(self, _id: str):
         self.user._id = _id
