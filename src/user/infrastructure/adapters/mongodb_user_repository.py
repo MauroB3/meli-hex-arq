@@ -41,10 +41,18 @@ class MongoDBUserRepository(UserRepository):
 
         return True
 
-    def find_user(self, email: str):
+    def find_user_by_email(self, email: str):
         query = {"email": email}
         res = self.collection.find_one(query)
         if not res:
             raise UserNotFoundException()
+
+        return res
+
+    def find_user_by_id(self, _id: str):
+        query = {"_id": _id}
+        res = self.collection.find_one(query)
+        if not res:
+            raise UserNotFoundException
 
         return res

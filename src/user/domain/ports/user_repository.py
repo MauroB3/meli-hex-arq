@@ -16,5 +16,9 @@ class UserRepository(ABC):
         pass
 
     @abstractmethod
-    def find_user(self, email: str):
+    def find_user_by_email(self, email: str):
+        pass
+
+    @abstractmethod
+    def find_user_by_id(self, _id: str):
         pass
