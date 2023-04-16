@@ -5,6 +5,8 @@ from fastapi.responses import JSONResponse
 from src.product.domain.ports.product_repository import ProductRepository
 from src.product.infrastructure.dto.product_dto import ProductDTO
 from src.product.infrastructure.dto.product_id_dto import ProductIdDTO
+from src.product.infrastructure.dto.product_name_dto import ProductNameDTO
+from src.product.infrastructure.dto.product_seller_dto import ProductSellerDTO
 from src.product.infrastructure.dto.product_seller_name_dto import ProductNameSellerDTO
 from src.product.infrastructure.dto.product_update_dto import ProductUpdateDTO
 from src.seller.domain.ports.seller_repository import SellerRepository
@@ -12,6 +14,8 @@ from src.product.application.use_cases.create_product import create_product as c
 from src.product.application.use_cases.delete_product import delete_product as delete_product_uc
 from src.product.application.use_cases.update_product import update_product as update_product_uc
 from src.product.application.use_cases.find_product import find_product_by_id as find_product_by_id_uc
+from src.product.application.use_cases.find_product import find_product_by_name as find_product_by_name_uc
+from src.product.application.use_cases.find_product import find_product_by_seller as find_product_by_seller_uc
 
 
 class ProductController:
@@ -26,6 +30,8 @@ class ProductController:
         self.router.add_api_route("/product/delete", self.delete_product_by_name_and_seller, methods=['POST'])
         self.router.add_api_route("/product/update", self.update_product, methods=['POST'])
         self.router.add_api_route("/product/find_by_id", self.find_product_by_id, methods=['POST'])
+        self.router.add_api_route("/product/find_by_name", self.find_product_by_name, methods=['POST'])
+        self.router.add_api_route("/product/find_by_seller", self.find_product_by_seller, methods=['POST'])
 
     def create_product(self, product: ProductDTO):
         create_product_uc(product_repository=self.product_repository, seller_repository=self.seller_repository,
@@ -46,3 +52,12 @@ class ProductController:
     def find_product_by_id(self, product: ProductIdDTO):
         product_res = find_product_by_id_uc(product_repository=self.product_repository, product_id=product.id)
         return JSONResponse(status_code=200, content={"message": "Product found.", "product": product_res})
+
+    def find_product_by_name(self, product: ProductNameDTO):
+        product_res = find_product_by_name_uc(product_repository=self.product_repository, name=product.name)
+        return JSONResponse(status_code=200, content={"message": "Products found.", "products": product_res})
+
+    def find_product_by_seller(self, product: ProductSellerDTO):
+        product_res = find_product_by_seller_uc(product_repository=self.product_repository,
+                                                seller_email=product.seller_email)
+        return JSONResponse(status_code=200, content={"message": "Products found.", "products": product_res})

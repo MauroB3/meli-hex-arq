@@ -53,7 +53,19 @@ class MongoDBProductRepository(ProductRepository):
         return res
 
     def find_product_by_name(self, name: str):
-        pass
+        query = {"name": {'$regex': name, '$options': 'i'}}
+        q_res = self.collection.find(query)
+        res = list(q_res)
+        if not res:
+            raise ProductNotFoundException()
+
+        return res
 
     def find_product_by_seller(self, seller_email: str):
-        pass
+        query = {"seller_email": {'$regex': seller_email, '$options': 'i'}}
+        q_res = self.collection.find(query)
+        res = list(q_res)
+        if not res:
+            raise ProductNotFoundException
+
+        return res
