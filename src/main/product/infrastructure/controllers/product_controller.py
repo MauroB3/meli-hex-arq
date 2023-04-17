@@ -17,6 +17,11 @@ from src.main.product.application.use_cases.find_product import find_product_by_
 from src.main.product.application.use_cases.find_product import find_product_by_name as find_product_by_name_uc
 from src.main.product.application.use_cases.find_product import find_product_by_seller as find_product_by_seller_uc
 from src.main.product.application.use_cases.find_product import find_product_by_category as find_product_by_category_uc
+from src.main.product.application.use_cases.filter_product import filter_price_between as filter_price_between_uc
+from src.main.product.application.use_cases.filter_product import \
+    filter_price_greater_than as filter_price_greater_than_uc
+from src.main.product.application.use_cases.filter_product import \
+    filter_price_smaller_than as filter_price_smaller_than_uc
 
 
 class ProductController:
@@ -34,6 +39,9 @@ class ProductController:
         self.router.add_api_route("/product/find_by_name", self.find_product_by_name, methods=['POST'])
         self.router.add_api_route("/product/find_by_seller", self.find_product_by_seller, methods=['POST'])
         self.router.add_api_route("/product/find_by_category", self.find_product_by_category, methods=['POST'])
+        self.router.add_api_route("/product/filter_by_price_range", self.filter_by_price_range, methods=['GET'])
+        self.router.add_api_route("/product/filter_by_price_greater", self.filter_by_price_greater, methods=['GET'])
+        self.router.add_api_route("/product/filter_by_price_smaller", self.filter_by_price_smaller, methods=['GET'])
 
     def create_product(self, product: ProductDTO):
         create_product_uc(product_repository=self.product_repository, seller_repository=self.seller_repository,
@@ -67,5 +75,18 @@ class ProductController:
 
     def find_product_by_category(self, product: ProductCategoryDTO):
         product_res = find_product_by_category_uc(product_repository=self.product_repository,
-                                                category=product.category)
+                                                  category=product.category)
+        return JSONResponse(status_code=200, content={"message": "Products found.", "products": product_res})
+
+    def filter_by_price_range(self, start_price: float, end_price: float):
+        product_res = filter_price_between_uc(product_repository=self.product_repository, start_price=start_price,
+                                              end_price=end_price)
+        return JSONResponse(status_code=200, content={"message": "Products found.", "products": product_res})
+
+    def filter_by_price_greater(self, price: float):
+        product_res = filter_price_greater_than_uc(product_repository=self.product_repository, price=price)
+        return JSONResponse(status_code=200, content={"message": "Products found.", "products": product_res})
+
+    def filter_by_price_smaller(self, price: float):
+        product_res = filter_price_smaller_than_uc(product_repository=self.product_repository, price=price)
         return JSONResponse(status_code=200, content={"message": "Products found.", "products": product_res})

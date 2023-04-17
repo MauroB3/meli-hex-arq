@@ -30,3 +30,15 @@ class ProductRepository(ABC):
     @abstractmethod
     def find_product_by_category(self, category: str):
         pass
+
+    @abstractmethod
+    def filter_price_between(self, start_price: float, end_price: float):
+        pass
+
+    @abstractmethod
+    def filter_price_greater_than(self, price: float):
+        pass
+
+    @abstractmethod
+    def filter_price_smaller_than(self, price: float):
+        pass

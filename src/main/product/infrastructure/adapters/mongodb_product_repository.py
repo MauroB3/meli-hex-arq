@@ -78,3 +78,30 @@ class MongoDBProductRepository(ProductRepository):
             raise ProductNotFoundException
 
         return res
+
+    def filter_price_between(self, start_price: float, end_price: float):
+        query = {"price": {"$gte": start_price, "$lte": end_price}}
+        q_res = self.collection.find(query)
+        res = list(q_res)
+        if not res:
+            raise ProductNotFoundException
+
+        return res
+
+    def filter_price_greater_than(self, price: float):
+        query = {"price": {"$gt": price}}
+        q_res = self.collection.find(query)
+        res = list(q_res)
+        if not res:
+            raise ProductNotFoundException
+
+        return res
+
+    def filter_price_smaller_than(self, price: float):
+        query = {"price": {"$lt": price}}
+        q_res = self.collection.find(query)
+        res = list(q_res)
+        if not res:
+            raise ProductNotFoundException
+
+        return res
