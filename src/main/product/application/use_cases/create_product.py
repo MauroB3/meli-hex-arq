@@ -5,8 +5,7 @@ from src.main.seller.domain.ports.seller_repository import SellerRepository
 
 
 def create_product(product_repository: ProductRepository, seller_repository: SellerRepository, seller_email: str,
-                   name: str, description: str,
-                   price: float, stock: int = 0):
+                   name: str, description: str, category: str, price: float, stock: int = 0):
 
     find_seller_by_email(seller_repository, seller_email)
 
@@ -15,6 +14,7 @@ def create_product(product_repository: ProductRepository, seller_repository: Sel
         with_name(name).with_description(description) \
         .with_price(price) \
         .with_stock(stock) \
+        .with_category(category)\
         .build()
 
     product.validate()

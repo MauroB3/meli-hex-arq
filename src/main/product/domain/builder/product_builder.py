@@ -4,7 +4,8 @@ from uuid import uuid1
 
 class ProductBuilder:
     def __init__(self):
-        self.product = Product(seller_email='', name='', description='', stock=0, price=0, _id=uuid1().__str__())
+        self.product = Product(seller_email='', name='', description='', stock=0, price=0, category='',
+                               _id=uuid1().__str__())
 
     def with_id(self, _id: str):
         self.product._id = _id
@@ -28,6 +29,10 @@ class ProductBuilder:
 
     def with_price(self, price: float):
         self.product.price = price
+        return self
+
+    def with_category(self, category: str):
+        self.product.category = category
         return self
 
     def build(self):

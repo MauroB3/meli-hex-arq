@@ -34,7 +34,7 @@ class ProductController:
     def create_product(self, product: ProductDTO):
         create_product_uc(product_repository=self.product_repository, seller_repository=self.seller_repository,
                           seller_email=product.seller_email, name=product.name, description=product.description,
-                          price=product.price, stock=product.stock)
+                          price=product.price, category=product.category, stock=product.stock)
         return JSONResponse(status_code=201, content={"message": "Product created."})
 
     def delete_product_by_name_and_seller(self, product: ProductNameSellerDTO):
@@ -44,7 +44,8 @@ class ProductController:
 
     def update_product(self, product: ProductUpdateDTO):
         update_product_uc(product_repository=self.product_repository, product_id=product.id, name=product.name,
-                          description=product.description, price=product.price)
+                          description=product.description, category=product.category, price=product.price,
+                          stock=product.stock)
         return JSONResponse(status_code=200, content={"message": "Product updated."})
 
     def find_product_by_id(self, product: ProductIdDTO):

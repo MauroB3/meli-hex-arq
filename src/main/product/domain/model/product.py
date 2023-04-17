@@ -10,6 +10,7 @@ class Product:
     description: str
     price: float
     _id: str
+    category: str
     stock: int = 0
 
     def _validate_stock(self):

@@ -6,3 +6,5 @@ class ProductUpdateDTO(BaseModel):
     name: str
     description: str
     price: float
+    category: str
+    stock: int
