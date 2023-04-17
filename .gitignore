@@ -132,5 +132,5 @@ dmypy.json
 .idea/
 
 # Config
-src/config/mongodb_atlas.py
+src/main/config/mongodb_atlas.py
 
