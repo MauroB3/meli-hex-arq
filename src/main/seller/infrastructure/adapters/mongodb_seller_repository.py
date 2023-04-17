@@ -2,7 +2,7 @@ import pymongo as pymongo
 
 from src.main.seller.domain.exceptions.seller_already_exists_exception import SellerAlreadyExistsException
 from src.main.seller.domain.exceptions.seller_not_found_exception import SellerNotFoundException
-from src.main.seller.domain.model import Seller
+from src.main.seller.domain.model.seller import Seller
 from src.main.seller.domain.ports.seller_repository import SellerRepository
 from src.main.config.mongodb_atlas import mongodb_uri
 from src.main.seller.infrastructure.mappers.seller_mapper import map_seller_to_dict

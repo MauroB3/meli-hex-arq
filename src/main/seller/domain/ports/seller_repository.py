@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from src.main.seller.domain.model import Seller
+from src.main.seller.domain.model.seller import Seller
 
 
 class SellerRepository(ABC):
