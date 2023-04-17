@@ -69,3 +69,12 @@ class MongoDBProductRepository(ProductRepository):
             raise ProductNotFoundException
 
         return res
+
+    def find_product_by_category(self, category: str):
+        query = {"category": {'$regex': category, '$options': 'i'}}
+        q_res = self.collection.find(query)
+        res = list(q_res)
+        if not res:
+            raise ProductNotFoundException
+
+        return res

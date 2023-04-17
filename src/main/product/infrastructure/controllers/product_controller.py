@@ -1,5 +1,7 @@
 from fastapi import APIRouter
 from fastapi.responses import JSONResponse
+
+from product.infrastructure.dto.product_category_dto import ProductCategoryDTO
 from src.main.product.domain.ports.product_repository import ProductRepository
 from src.main.product.infrastructure.dto.product_dto import ProductDTO
 from src.main.product.infrastructure.dto.product_id_dto import ProductIdDTO
@@ -14,6 +16,7 @@ from src.main.product.application.use_cases.update_product import update_product
 from src.main.product.application.use_cases.find_product import find_product_by_id as find_product_by_id_uc
 from src.main.product.application.use_cases.find_product import find_product_by_name as find_product_by_name_uc
 from src.main.product.application.use_cases.find_product import find_product_by_seller as find_product_by_seller_uc
+from src.main.product.application.use_cases.find_product import find_product_by_category as find_product_by_category_uc
 
 
 class ProductController:
@@ -30,6 +33,7 @@ class ProductController:
         self.router.add_api_route("/product/find_by_id", self.find_product_by_id, methods=['POST'])
         self.router.add_api_route("/product/find_by_name", self.find_product_by_name, methods=['POST'])
         self.router.add_api_route("/product/find_by_seller", self.find_product_by_seller, methods=['POST'])
+        self.router.add_api_route("/product/find_by_category", self.find_product_by_category, methods=['POST'])
 
     def create_product(self, product: ProductDTO):
         create_product_uc(product_repository=self.product_repository, seller_repository=self.seller_repository,
@@ -59,4 +63,9 @@ class ProductController:
     def find_product_by_seller(self, product: ProductSellerDTO):
         product_res = find_product_by_seller_uc(product_repository=self.product_repository,
                                                 seller_email=product.seller_email)
+        return JSONResponse(status_code=200, content={"message": "Products found.", "products": product_res})
+
+    def find_product_by_category(self, product: ProductCategoryDTO):
+        product_res = find_product_by_category_uc(product_repository=self.product_repository,
+                                                category=product.category)
         return JSONResponse(status_code=200, content={"message": "Products found.", "products": product_res})

@@ -26,3 +26,7 @@ class ProductRepository(ABC):
     @abstractmethod
     def find_product_by_seller(self, seller_email: str):
         pass
+
+    @abstractmethod
+    def find_product_by_category(self, category: str):
+        pass

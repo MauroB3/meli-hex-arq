@@ -11,3 +11,7 @@ def find_product_by_name(product_repository: ProductRepository, name: str):
 
 def find_product_by_seller(product_repository: ProductRepository, seller_email: str):
     return product_repository.find_product_by_seller(seller_email)
+
+
+def find_product_by_category(product_repository: ProductRepository, category: str):
+    return product_repository.find_product_by_category(category)
