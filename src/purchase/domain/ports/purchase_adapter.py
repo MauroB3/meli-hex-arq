@@ -10,15 +10,7 @@ class PurchaseRepository(ABC):
         pass
 
     @abstractmethod
-    def update_purchase(self, purchase: Purchase):
-        pass
-
-    @abstractmethod
     def find_purchases_of_user(self, user_email: str):
-        pass
-
-    @abstractmethod
-    def find_sales_of_seller(self, seller_email: str):
         pass
 
     @abstractmethod
