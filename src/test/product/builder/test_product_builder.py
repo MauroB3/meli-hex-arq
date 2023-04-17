@@ -42,3 +42,8 @@ class TestProductBuilderMethods(unittest.TestCase):
         price = 100
         prod = self.builder.with_price(price).build()
         self.assertEquals(prod.price, price)
+
+    def test_with_category(self):
+        category = 'test'
+        prod = self.builder.with_category(category).build()
+        self.assertEquals(prod.category, category)
