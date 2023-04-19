@@ -18,7 +18,7 @@ app = FastAPI()
 
 @app.get("/")
 async def root():
-    return {"message": "Hola"}
+    return {"message": "Meli - Arquitectura de Software"}
 
 
 def setup():

@@ -26,7 +26,7 @@ class PurchaseController:
     def init_routes(self):
         self.router.add_api_route("/purchase/create", self.create_purchase, methods=['POST'])
         self.router.add_api_route("/purchase/find_by_user", self.find_purchases_of_user, methods=['POST'])
-        self.router.add_api_route("/purchase/find_by_product", self.find_user_by_product, methods=['POST'])
+        self.router.add_api_route("/purchase/find_by_product", self.find_sales_by_product, methods=['POST'])
 
     def create_purchase(self, purchase: PurchaseDTO):
         date = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
@@ -40,7 +40,7 @@ class PurchaseController:
                                               user_email=purchase.buyer_email)
         return JSONResponse(status_code=200, content={"message": "Purchases found.", "purchases": purchases})
 
-    def find_user_by_product(self, purchase: PurchaseProductIdDTO):
+    def find_sales_by_product(self, purchase: PurchaseProductIdDTO):
         purchases = find_sales_of_product_uc(purchase_repository=self.purchase_repository,
                                              product_id=purchase.product_id)
         return JSONResponse(status_code=200, content={"message": "Purchases found.", "purchases": purchases})
