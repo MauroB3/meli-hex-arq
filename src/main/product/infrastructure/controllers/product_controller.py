@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from fastapi.responses import JSONResponse
 
-from product.infrastructure.dto.product_category_dto import ProductCategoryDTO
+from src.main.product.infrastructure.dto.product_category_dto import ProductCategoryDTO
 from src.main.product.domain.ports.product_repository import ProductRepository
 from src.main.product.infrastructure.dto.product_dto import ProductDTO
 from src.main.product.infrastructure.dto.product_id_dto import ProductIdDTO
