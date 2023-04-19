@@ -10,6 +10,10 @@
 
 ![UML architecture](/doc/UML%20-%20Architecture.png)
 
+### UML del modelo
+
+![UML model](/doc/UML.png)
+
 ---
 
 ## Casos de uso
