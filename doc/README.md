@@ -4,6 +4,6 @@
 
 ### Diagrama de arquitectura hexagonal
 
-![hexagonal architecture](/meli-hex-arq/blob/main/doc/Hexagonal%20architecture.png)
+![hexagonal architecture](/doc/Hexagonal%20architecture.png)
 
 ### Diagrama UML de la arquitectura
