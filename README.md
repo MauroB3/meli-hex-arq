@@ -40,3 +40,13 @@ La documentacion de la arquitectura y los diagramas de secuencia para los casos 
    5. En cualquiera de los dos casos podemos acceder a la aplicacion desde
    
    `http://localhost:8080/`
+
+---
+
+## Swagger
+
+Para visualizar la documentacion de la api debemos ejecutar la aplicacion y acceder a alguna de las siguientes rutas:
+
+`http://localhost:8080/docs`
+
+`http://localhost:8080/redoc`
